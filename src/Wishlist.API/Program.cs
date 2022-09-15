@@ -8,6 +8,7 @@ using Wishlist.Core.Interfaces;
 using Wishlist.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.AddConsole();
 
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);

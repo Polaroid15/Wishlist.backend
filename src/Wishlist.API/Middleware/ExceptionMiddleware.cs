@@ -1,16 +1,13 @@
 using Wishlist.Core;
 using Wishlist.Core.Exceptions;
-using Wishlist.Core.Interfaces;
 
 namespace Wishlist.API.Middleware; 
 
 public class ExceptionMiddleware {
     private readonly RequestDelegate _next;
-    private readonly IAppLogger<ExceptionMiddleware> _logger;
 
-    public ExceptionMiddleware(RequestDelegate next, IAppLogger<ExceptionMiddleware> logger) {
+    public ExceptionMiddleware(RequestDelegate next) {
         _next = next;
-        _logger = logger;
     }
     
     public async Task InvokeAsync(HttpContext httpContext)
@@ -27,7 +24,6 @@ public class ExceptionMiddleware {
 
     private async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        _logger.LogCritical(exception.Message);
         context.Response.ContentType = "application/json";
 
         context.Response.StatusCode = exception switch {
