@@ -1,5 +1,5 @@
 using Wishlist.Core;
-using Wishlist.Core.Exceptions;
+using Wishlist.SharedKernel.Exceptions;
 
 namespace Wishlist.API.Middleware; 
 

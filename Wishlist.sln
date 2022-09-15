@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DED92C7D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wishlist.Infrastructure", "src\Wishlist.Infrastructure\Wishlist.Infrastructure.csproj", "{5DEEFB68-9AF3-4D8D-9B13-F7CA6D533D7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wishlist.SharedKernel", "src\Wishlist.SharedKernel\Wishlist.SharedKernel.csproj", "{568E55F9-C07C-48BF-90D9-66427354D527}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,5 +30,9 @@ Global
 		{5DEEFB68-9AF3-4D8D-9B13-F7CA6D533D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DEEFB68-9AF3-4D8D-9B13-F7CA6D533D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DEEFB68-9AF3-4D8D-9B13-F7CA6D533D7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{568E55F9-C07C-48BF-90D9-66427354D527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{568E55F9-C07C-48BF-90D9-66427354D527}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{568E55F9-C07C-48BF-90D9-66427354D527}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{568E55F9-C07C-48BF-90D9-66427354D527}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

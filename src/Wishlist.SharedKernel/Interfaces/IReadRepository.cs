@@ -1,6 +1,6 @@
 using Ardalis.Specification;
 
-namespace Wishlist.Core.Interfaces; 
+namespace Wishlist.SharedKernel.Interfaces; 
 
 public interface IReadRepository<T> : IReadRepositoryBase<T> where T : class, IAggregateRoot
 {

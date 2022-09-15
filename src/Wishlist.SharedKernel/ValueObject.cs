@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace Wishlist.Core; 
+namespace Wishlist.SharedKernel; 
 
 public class ValueObject : IEquatable<ValueObject> {
     private List<PropertyInfo>? _properties;

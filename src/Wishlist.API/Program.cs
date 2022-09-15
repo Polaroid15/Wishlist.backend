@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Wishlist.API.MappingProfiles;
 using Wishlist.API.Middleware;
-using Wishlist.Core.Interfaces;
 using Wishlist.Infrastructure;
+using Wishlist.SharedKernel.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.AddConsole();
