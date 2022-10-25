@@ -5,12 +5,20 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wishlist.API", "src\Wishlist.API\Wishlist.API.csproj", "{86D3AE84-BBDC-4CEE-B70C-D31F79E3C98B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{5B8CB7A4-50EC-4295-B2AC-8F0745D81DB9}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DED92C7D-5B94-4198-8D40-CD538AE0DC46}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wishlist.Infrastructure", "src\Wishlist.Infrastructure\Wishlist.Infrastructure.csproj", "{5DEEFB68-9AF3-4D8D-9B13-F7CA6D533D7B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wishlist.SharedKernel", "src\Wishlist.SharedKernel\Wishlist.SharedKernel.csproj", "{568E55F9-C07C-48BF-90D9-66427354D527}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Main", "Main", "{D610FE4F-2854-41F9-A228-F19D5C341570}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{151433F1-CA60-43EB-97B6-C9EDE0996C4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,5 +42,11 @@ Global
 		{568E55F9-C07C-48BF-90D9-66427354D527}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{568E55F9-C07C-48BF-90D9-66427354D527}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{568E55F9-C07C-48BF-90D9-66427354D527}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{86D3AE84-BBDC-4CEE-B70C-D31F79E3C98B} = {151433F1-CA60-43EB-97B6-C9EDE0996C4F}
+		{08368D20-D42D-4EDA-8BF1-0DC1DC842B0C} = {D610FE4F-2854-41F9-A228-F19D5C341570}
+		{5DEEFB68-9AF3-4D8D-9B13-F7CA6D533D7B} = {D610FE4F-2854-41F9-A228-F19D5C341570}
+		{568E55F9-C07C-48BF-90D9-66427354D527} = {D610FE4F-2854-41F9-A228-F19D5C341570}
 	EndGlobalSection
 EndGlobal

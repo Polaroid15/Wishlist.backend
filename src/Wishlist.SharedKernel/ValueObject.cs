@@ -1,8 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
-namespace Wishlist.SharedKernel; 
+namespace Wishlist.SharedKernel;
 
-public class ValueObject : IEquatable<ValueObject> {
+public class ValueObject : IEquatable<ValueObject>
+{
     private List<PropertyInfo>? _properties;
     private List<FieldInfo>? _fields;
 
@@ -14,8 +18,10 @@ public class ValueObject : IEquatable<ValueObject> {
             {
                 return true;
             }
+
             return false;
         }
+
         return obj1.Equals(obj2);
     }
 
@@ -31,7 +37,8 @@ public class ValueObject : IEquatable<ValueObject> {
                && GetFields().All(f => FieldsAreEqual(obj, f));
     }
 
-    public override int GetHashCode() {
+    public override int GetHashCode()
+    {
         return HashCode.Combine(_properties, _fields);
     }
 
@@ -39,12 +46,13 @@ public class ValueObject : IEquatable<ValueObject> {
 
     private bool FieldsAreEqual(object obj, FieldInfo f) => Equals(f.GetValue(this), f.GetValue(obj));
 
-    private IEnumerable<PropertyInfo> GetProperties() {
+    private IEnumerable<PropertyInfo> GetProperties()
+    {
         return _properties ??= GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public).ToList();
     }
 
-    private IEnumerable<FieldInfo> GetFields() {
+    private IEnumerable<FieldInfo> GetFields()
+    {
         return _fields ??= GetType().GetFields(BindingFlags.Instance | BindingFlags.Public).ToList();
     }
-
 }

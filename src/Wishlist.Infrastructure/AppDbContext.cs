@@ -1,11 +1,15 @@
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Wishlist.Core.Entities.WishlistAggregate;
 using Wishlist.SharedKernel;
 using Wishlist.SharedKernel.Interfaces;
 
-namespace Wishlist.Infrastructure; 
+namespace Wishlist.Infrastructure;
 
-public class AppDbContext : DbContext {
+public class AppDbContext : DbContext
+{
     private readonly IDomainEventDispatcher? _dispatcher;
 
     public AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventDispatcher? dispatcher)

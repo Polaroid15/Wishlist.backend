@@ -1,4 +1,6 @@
-namespace Wishlist.SharedKernel.Exceptions; 
+using System;
+
+namespace Wishlist.SharedKernel.Exceptions;
 
 public class UnauthorizedException : Exception
 {

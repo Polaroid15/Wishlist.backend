@@ -1,5 +1,5 @@
-namespace Wishlist.SharedKernel.Interfaces; 
+namespace Wishlist.SharedKernel.Interfaces;
 
-public interface IAggregateRoot {
-    
+public interface IAggregateRoot
+{
 }
