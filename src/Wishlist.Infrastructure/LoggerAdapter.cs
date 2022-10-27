@@ -1,11 +1,12 @@
 using Microsoft.Extensions.Logging;
 using Wishlist.SharedKernel.Interfaces;
 
-namespace Wishlist.Infrastructure; 
+namespace Wishlist.Infrastructure;
 
 public class LoggerAdapter<T> : IAppLogger<T>
 {
     private readonly ILogger<T> _logger;
+
     public LoggerAdapter(ILoggerFactory loggerFactory)
     {
         _logger = loggerFactory.CreateLogger<T>();
@@ -21,7 +22,8 @@ public class LoggerAdapter<T> : IAppLogger<T>
         _logger.LogWarning(message, args);
     }
 
-    public void LogCritical(string message, params object[] args) {
+    public void LogCritical(string message, params object[] args)
+    {
         _logger.LogCritical(message, args);
     }
 }

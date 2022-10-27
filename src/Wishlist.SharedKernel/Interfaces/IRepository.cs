@@ -1,7 +1,8 @@
 using Ardalis.Specification;
 
-namespace Wishlist.SharedKernel.Interfaces; 
+namespace Wishlist.SharedKernel.Interfaces;
 
-public interface IRepository<T> : IRepositoryBase<T> where T : class, IAggregateRoot
+public interface IRepository<T> : IRepositoryBase<T>
+    where T : class, IAggregateRoot
 {
 }

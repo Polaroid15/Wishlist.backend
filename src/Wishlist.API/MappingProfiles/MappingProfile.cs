@@ -1,9 +1,10 @@
 using AutoMapper;
 
-namespace Wishlist.API.MappingProfiles; 
+namespace Wishlist.API.MappingProfiles;
 
-public class MappingProfile : Profile {
-    public MappingProfile() {
-        
+public class MappingProfile : Profile
+{
+    public MappingProfile()
+    {
     }
 }

@@ -1,15 +1,20 @@
+using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Wishlist.Core;
 using Wishlist.SharedKernel.Exceptions;
 
-namespace Wishlist.API.Middleware; 
+namespace Wishlist.API.Middleware;
 
-public class ExceptionMiddleware {
+public class ExceptionMiddleware
+{
     private readonly RequestDelegate _next;
 
-    public ExceptionMiddleware(RequestDelegate next) {
+    public ExceptionMiddleware(RequestDelegate next)
+    {
         _next = next;
     }
-    
+
     public async Task InvokeAsync(HttpContext httpContext)
     {
         try
@@ -18,7 +23,7 @@ public class ExceptionMiddleware {
         }
         catch (Exception ex)
         {
-            await HandleExceptionAsync(httpContext, ex);        
+            await HandleExceptionAsync(httpContext, ex);
         }
     }
 
@@ -26,14 +31,12 @@ public class ExceptionMiddleware {
     {
         context.Response.ContentType = "application/json";
 
-        context.Response.StatusCode = exception switch {
+        context.Response.StatusCode = exception switch
+        {
             NotFoundException => StatusCodes.Status404NotFound,
             _ => StatusCodes.Status500InternalServerError
         };
-        await context.Response.WriteAsync(new ErrorDetails()
-        {
-            StatusCode = context.Response.StatusCode,
-            Message = exception.Message
-        }.ToString());
+        await context.Response.WriteAsync(
+            new ErrorDetails() { StatusCode = context.Response.StatusCode, Message = exception.Message }.ToString());
     }
 }
