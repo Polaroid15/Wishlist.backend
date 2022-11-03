@@ -8,6 +8,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		README.md = README.md
+		shared\connectrionStrings\wish_prod.json = shared\connectrionStrings\wish_prod.json
+		shared\connectrionStrings\wish_stage.json = shared\connectrionStrings\wish_stage.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DED92C7D-5B94-4198-8D40-CD538AE0DC46}"
@@ -19,6 +21,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Main", "Main", "{D610FE4F-2854-41F9-A228-F19D5C341570}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{151433F1-CA60-43EB-97B6-C9EDE0996C4F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Migrations", "Migrations", "{4E3C1F58-F018-4EF1-8B96-A6EE07640B19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wishlist.Migrations", "src\Wishlist.Migrations\Wishlist.Migrations.csproj", "{8AD4FD51-9F5F-4037-B24B-7D2BB5159B91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,11 +48,16 @@ Global
 		{568E55F9-C07C-48BF-90D9-66427354D527}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{568E55F9-C07C-48BF-90D9-66427354D527}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{568E55F9-C07C-48BF-90D9-66427354D527}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AD4FD51-9F5F-4037-B24B-7D2BB5159B91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AD4FD51-9F5F-4037-B24B-7D2BB5159B91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AD4FD51-9F5F-4037-B24B-7D2BB5159B91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AD4FD51-9F5F-4037-B24B-7D2BB5159B91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{86D3AE84-BBDC-4CEE-B70C-D31F79E3C98B} = {151433F1-CA60-43EB-97B6-C9EDE0996C4F}
 		{08368D20-D42D-4EDA-8BF1-0DC1DC842B0C} = {D610FE4F-2854-41F9-A228-F19D5C341570}
 		{5DEEFB68-9AF3-4D8D-9B13-F7CA6D533D7B} = {D610FE4F-2854-41F9-A228-F19D5C341570}
 		{568E55F9-C07C-48BF-90D9-66427354D527} = {D610FE4F-2854-41F9-A228-F19D5C341570}
+		{8AD4FD51-9F5F-4037-B24B-7D2BB5159B91} = {4E3C1F58-F018-4EF1-8B96-A6EE07640B19}
 	EndGlobalSection
 EndGlobal

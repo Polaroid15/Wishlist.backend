@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentMigrator" Version="3.3.2" />
+        <PackageReference Include="FluentMigrator.Runner" Version="3.3.2" />
+        <PackageReference Include="FluentMigrator.Runner.Postgres" Version="3.3.2" />
+        <PackageReference Include="Npgsql" Version="6.0.7" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="..\..\shared\connectrionStrings\wish_prod.json">
+            <Link>\connectrionStrings\wish_prod.json</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="..\..\shared\connectrionStrings\wish_stage.json">
+            <Link>\connectrionStrings\wish_stage.json</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Properties\launchSettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ProjectExtensions>
+        <VisualStudio>
+            <UserProperties properties_4launchsettings_1json__JsonSchema="" />
+        </VisualStudio>
+    </ProjectExtensions>
+
+</Project>
