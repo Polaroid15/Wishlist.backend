@@ -1,4 +1,4 @@
-namespace Wishlist.Core.Constrants; 
+namespace Wishlist.Core.Constants; 
 
 public class AuthConstants {
     
