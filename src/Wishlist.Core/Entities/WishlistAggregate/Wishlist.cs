@@ -23,7 +23,7 @@ public class Wishlist : BaseEntity, IAggregateRoot
     {
         UserId = userId;
     }
-
+    
     public void AddItem(WishlistItem wishlistItem)
     {
         if (Items.All(i => i.Id != wishlistItem.Id))

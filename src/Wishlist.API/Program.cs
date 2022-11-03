@@ -1,75 +1,84 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
+using Ardalis.ListStartupServices;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Wishlist.API.DIExtensions;
 using Wishlist.API.MappingProfiles;
 using Wishlist.API.Middleware;
 using Wishlist.Infrastructure;
 using Wishlist.SharedKernel.Interfaces;
 
-namespace Wishlist.API;
+var builder = WebApplication.CreateBuilder(args);
+builder.Logging.AddConsole();
 
-public static class Program
+builder.Services.AddHttpLogging(options => {
+    options.LoggingFields = HttpLoggingFields.RequestPath |
+                            HttpLoggingFields.RequestBody |
+                            HttpLoggingFields.ResponseStatusCode |
+                            HttpLoggingFields.ResponseBody;
+    options.RequestBodyLogLimit = 8192;
+    options.ResponseBodyLogLimit = 8192;
+});
+
+builder.Services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
+
+builder.Services.AddMediatR(typeof(Wishlist.Core.Entities.WishlistAggregate.Wishlist).Assembly);
+builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen();
+// builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddHealthChecks();
+builder.Services.Configure<ServiceConfig>(config =>
 {
-    public static async Task Main(string[] args)
-        => await BuildWebApplication(args).RunAsync();
+    config.Services = new List<ServiceDescriptor>(builder.Services);
+    config.Path = "/allservices";
+});
 
-    private static WebApplication BuildWebApplication(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
-        builder.Logging.AddConsole();
+var env = builder.Environment.EnvironmentName;
+builder.Configuration.AddEnvironmentVariables();
+builder.Configuration.AddJsonFile("appsettings.json");
+builder.Configuration.AddJsonFile($"appsettings.{env}.json", optional: true);
 
-        builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
-        builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
-        builder.Services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
-        builder.Services.AddControllers();
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-        builder.Services.AddHealthChecks();
+var app = builder.Build();
+app.UseCustomHealthChecks();
 
-        var env = builder.Environment.EnvironmentName;
-
-        builder.Configuration.AddJsonFile("appsettings.json");
-        builder.Configuration.AddJsonFile($"appsettings.{env}.json", optional: true);
-        builder.Configuration.AddEnvironmentVariables();
-        if (args.Any())
-        {
-            builder.Configuration.AddCommandLine(args);
-        }
-
-        var app = builder.Build();
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-            app.UseDeveloperExceptionPage();
-        }
-
-        app.UseMiddleware<ExceptionMiddleware>();
-        app.UseHttpsRedirection();
-
-        app.UseRouting();
-
-        app.UseAuthorization();
-
-        app.MapHealthChecks("/health", new HealthCheckOptions()
-        {
-            ResultStatusCodes = new Dictionary<HealthStatus, int>()
-            {
-                [HealthStatus.Healthy] = 200, [HealthStatus.Degraded] = 400, [HealthStatus.Unhealthy] = 500,
-            },
-        });
-        app.MapControllers();
-
-        return app;
-    }
+if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docker")
+{
+    app.Logger.LogInformation("Adding Development middleware...");
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.UseShowAllServicesMiddleware();
+    app.UseDeveloperExceptionPage();
 }
+else
+{
+    app.Logger.LogInformation("Adding non-Development middleware...");
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
+
+app.UseHttpLogging();
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
+app.Logger.LogInformation("LAUNCHING");
+app.Run();

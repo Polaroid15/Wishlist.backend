@@ -4,8 +4,8 @@ namespace Wishlist.Core.Entities.WishlistAggregate.Events;
 
 public class NewItemAddedEvent : DomainEventBase
 {
-    public WishlistItem NewItem { get; set; }
     public Wishlist Wishlist { get; set; }
+    public WishlistItem NewItem { get; set; }
 
     public NewItemAddedEvent(Wishlist wishlist, WishlistItem newItem)
     {
