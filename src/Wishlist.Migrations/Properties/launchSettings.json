@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "Migrations.Wishlist.DEV": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "wish_stage"
+      }
+    },
+    "Migrations.Wishlist.PROD": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "wish_prod"
+      }
+    }
+  }
+}
