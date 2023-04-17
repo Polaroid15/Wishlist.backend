@@ -1,30 +1,47 @@
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Duende.IdentityServer.EntityFramework.Options;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
-using Wishlist.Core.Entities.WishlistAggregate;
-using Wishlist.SharedKernel;
-using Wishlist.SharedKernel.Interfaces;
+using Microsoft.Extensions.Options;
+using Wishlist.Application.Common.Interfaces;
+using Wishlist.Domain.Common;
+using Wishlist.Domain.Entities;
+using Wishlist.Domain.Events;
+using Wishlist.Infrastructure.Identity;
+using Wishlist.Infrastructure.Persistence.Interceptors;
 
 namespace Wishlist.Infrastructure;
 
-public class AppDbContext : DbContext
+public class AppDbContext  : ApiAuthorizationDbContext<ApplicationUser>, IApplicationDbContext
 {
+    private readonly AuditableEntitySaveChangesInterceptor _auditableEntitySaveChangesInterceptor;
     private readonly IDomainEventDispatcher? _dispatcher;
 
-    public AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventDispatcher? dispatcher)
-        : base(options)
+    public AppDbContext(
+        DbContextOptions<AppDbContext> options,
+        IOptions<OperationalStoreOptions> operationalStoreOptions,
+        IDomainEventDispatcher? dispatcher,
+        AuditableEntitySaveChangesInterceptor auditableEntitySaveChangesInterceptor)
+        : base(options, operationalStoreOptions)
     {
         _dispatcher = dispatcher;
+        _auditableEntitySaveChangesInterceptor = auditableEntitySaveChangesInterceptor;
     }
 
     public DbSet<WishlistItem> WishlistItems => Set<WishlistItem>();
-    public DbSet<Core.Entities.WishlistAggregate.Wishlist> Wishlists => Set<Core.Entities.WishlistAggregate.Wishlist>();
+    public DbSet<Domain.Entities.Wishlist> Wishlists => Set<Domain.Entities.Wishlist>();
 
-
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        optionsBuilder.AddInterceptors(_auditableEntitySaveChangesInterceptor);
+    }
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
         if (_dispatcher == null) return result;
 
@@ -37,6 +54,4 @@ public class AppDbContext : DbContext
 
         return result;
     }
-
-    public override int SaveChanges() => SaveChangesAsync().GetAwaiter().GetResult();
 }

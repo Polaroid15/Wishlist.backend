@@ -12,13 +12,12 @@ using var scope = serviceProvider.CreateScope();
 var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
 runner.MigrateUp();
 
-
 static IServiceProvider CreateServices()
 {
     var env = Environment.GetEnvironmentVariable(ENVIRONMENT_VARIABLE_NAME);
     var config = new ConfigurationBuilder()
         .AddJsonFile("appsettings.json")
-        .AddJsonFile($"connectrionStrings/{env}.json")
+        .AddJsonFile($"appsettings.{env}.json", optional: true, reloadOnChange: false)
         .AddEnvironmentVariables()
         .Build();
 

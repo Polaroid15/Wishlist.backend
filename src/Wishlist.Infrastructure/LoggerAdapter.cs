@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Logging;
-using Wishlist.SharedKernel.Interfaces;
+using Wishlist.Application.Common.Interfaces;
 
 namespace Wishlist.Infrastructure;
 
